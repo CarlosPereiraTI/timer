@@ -1,14 +1,24 @@
 from cProfile import run
 import tkinter as tk
 from turtle import update
+from tkinter import *
+
+
+# Window
+root = tk.Tk()
+root.geometry('400x220')
+root.resizable(0,0)
+photo = PhotoImage(file="clock.png")
+root.iconphoto(True, photo)
+root.title('Timer')
+
 
 # variables
-# using a boolean to check if timer is running
 running = False
-# time variables
 hours = 0
 minutes = 0
 seconds = 0
+
 
 # functions
 def start():
@@ -17,11 +27,13 @@ def start():
         update()
         running = True
 
+
 def pause():
     global running
     if running:
         timer_label.after_cancel(update_time)
         running = False
+
 
 def reset():
     global running
@@ -39,7 +51,6 @@ def reset():
 
 # update stopwatch function
 def update():
-    # update seconds with (addition) compound assignment operator
     global hours, minutes, seconds
     seconds += 1
     if seconds == 60:
@@ -54,16 +65,10 @@ def update():
     seconds_string = f'{seconds}' if seconds > 9 else f'0{seconds}'
     # update timer label after 1 second
     timer_label.config(text=hours_string + ':' + minutes_string + ':' + seconds_string)
+    # timer_label.config(minutes_string + ':' + seconds_string)
     # use update_time variable to cancel or pause the time using after_cancel
     global update_time
     update_time = timer_label.after(1000, update)
-
-
-# Window
-root = tk.Tk()
-root.geometry('400x220')
-root.resizable(0,0)
-root.title('Timer')
 
 
 # Clock and buttons
@@ -72,13 +77,10 @@ timer_label.pack()
 
 start_button = tk.Button(text='Start', height=2, width=7, font=('Calibri', 15), command=start)
 start_button.pack(side=tk.LEFT, padx=10, pady=10)
-
 pause_button = tk.Button(text='Pause', height=2, width=7, font=('Calibri', 15), command=pause)
 pause_button.pack(side=tk.LEFT, padx=10, pady=10)
-
 reset_button = tk.Button(text='Reset', height=2, width=7, font=('Calibri', 15), command=reset)
 reset_button.pack(side=tk.LEFT, padx=10, pady=10)
-
 close_button = tk.Button(text='Close', height=2, width=7, font=('Calibri', 15), command=root.quit)
 close_button.pack(side=tk.LEFT, padx=10, pady=10)
 
