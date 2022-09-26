@@ -1,14 +1,62 @@
+from cProfile import run
 import tkinter as tk
+from turtle import update
+
+# variables
+# using a boolean to check if timer is running
+running = False
+# time variables
+hours = 0
+minutes = 0
+seconds = 0
 
 # functions
 def start():
-    pass
+    global running
+    if not running:
+        update()
+        running = True
 
 def pause():
-    pass
+    global running
+    if running:
+        timer_label.after_cancel(update_time)
+        running = False
 
 def reset():
-    pass
+    global running
+    if running:
+        timer_label.after_cancel(update_time)
+        running = False
+
+    global hours, minutes, seconds
+    hours = 0
+    minutes = 0
+    seconds = 0
+
+    timer_label.config(text='00:00:00')
+
+
+# update stopwatch function
+def update():
+    # update seconds with (addition) compound assignment operator
+    global hours, minutes, seconds
+    seconds += 1
+    if seconds == 60:
+        minutes += 1
+        seconds = 0
+    if minutes == 60:
+        hours += 1
+        minutes = 0
+    # format time 
+    hours_string = f'{hours}' if hours > 9 else f'0{hours}'
+    minutes_string = f'{minutes}' if minutes > 9 else f'0{minutes}'
+    seconds_string = f'{seconds}' if seconds > 9 else f'0{seconds}'
+    # update timer label after 1 second
+    timer_label.config(text=hours_string + ':' + minutes_string + ':' + seconds_string)
+    # use update_time variable to cancel or pause the time using after_cancel
+    global update_time
+    update_time = timer_label.after(1000, update)
 
 
 # Window
@@ -19,7 +67,7 @@ root.title('Timer')
 
 
 # Clock and buttons
-timer_label = tk.Label(text='00:00:00', font=('Calibri', 70))
+timer_label = tk.Label(text='00:00:00', font=('Calibri', 80))
 timer_label.pack()
 
 start_button = tk.Button(text='Start', height=2, width=7, font=('Calibri', 15), command=start)
