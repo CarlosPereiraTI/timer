@@ -57,9 +57,11 @@ def update():
         minutes += 1
         seconds = 0
     if minutes == 30 and seconds == 1:
+    # if minutes == 1 and seconds == 6:
         # hours += 1
         # minutes = 0
         pause()
+        timer_label.config(fg='white', bg='red')
         tk.messagebox.showwarning(title="My Break", message="Alert: Your break has finished.")
 
     # format time 
