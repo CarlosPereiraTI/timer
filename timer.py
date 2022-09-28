@@ -6,7 +6,7 @@ from tkinter import *
 
 # Window
 root = tk.Tk()
-root.geometry('400x220')
+root.geometry('400x190')
 root.resizable(0,0)
 photo = PhotoImage(file="clock.png")
 root.iconphoto(True, photo)
@@ -56,13 +56,20 @@ def update():
     if seconds == 60:
         minutes += 1
         seconds = 0
+    if minutes == 25 and seconds == 1:
+    # if minutes == 1 and seconds == 3:
+        timer_label.config(fg='white', bg='red')
+    # if minutes == 1 and seconds == 30:
     if minutes == 30 and seconds == 1:
-    # if minutes == 1 and seconds == 6:
         # hours += 1
         # minutes = 0
         pause()
         timer_label.config(fg='white', bg='red')
-        tk.messagebox.showwarning(title="My Break", message="Alert: Your break has finished.")
+        # tk.messagebox.showwarning(title="My Break", message="Alert: Your break has finished.")
+        tk.messagebox.showwarning(title="My Break", message="Se acabó el recreo :) !!")
+    if minutes == 60:
+        hours += 1
+        minutes = 0
 
     # format time 
     hours_string = f'{hours}' if hours > 9 else f'0{hours}'
@@ -77,7 +84,7 @@ def update():
 
 
 # Clock and buttons
-timer_label = tk.Label(text='00:00:00', font=('Calibri', 80))
+timer_label = tk.Label(text='00:00:00', font=('Calibri', 80), fg='blue', bg='white')
 timer_label.pack()
 
 start_button = tk.Button(text='Start', height=2, width=7, font=('Calibri', 15), command=start)
