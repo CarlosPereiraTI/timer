@@ -8,7 +8,7 @@ from tkinter import *
 root = tk.Tk()
 root.geometry('400x190')
 root.resizable(0,0)
-photo = PhotoImage(file="clock.png")
+photo = PhotoImage(file="img/clock.png")
 root.iconphoto(True, photo)
 root.title(' My Break')
 
