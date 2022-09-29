@@ -53,31 +53,28 @@ def reset():
 def update():
     global hours, minutes, seconds
     seconds += 1
+
     if seconds == 60:
         minutes += 1
         seconds = 0
     if minutes == 25 and seconds == 1:
-    # if minutes == 1 and seconds == 3:
         timer_label.config(fg='white', bg='red')
-    # if minutes == 1 and seconds == 30:
     if minutes == 30 and seconds == 1:
-        # hours += 1
-        # minutes = 0
         pause()
         timer_label.config(fg='white', bg='red')
-        # tk.messagebox.showwarning(title="My Break", message="Alert: Your break has finished.")
-        tk.messagebox.showwarning(title="My Break", message="Se acabó el recreo :) !!")
+        tk.messagebox.showwarning(title="My Break", message="Alert: Your break has finished.")
     if minutes == 60:
         hours += 1
         minutes = 0
 
     # format time 
-    hours_string = f'{hours}' if hours > 9 else f'0{hours}'
+    hours_string   = f'{hours}' if hours > 9 else f'0{hours}'
     minutes_string = f'{minutes}' if minutes > 9 else f'0{minutes}'
     seconds_string = f'{seconds}' if seconds > 9 else f'0{seconds}'
+
     # update timer label after 1 second
     timer_label.config(text=hours_string + ':' + minutes_string + ':' + seconds_string)
-    # timer_label.config(minutes_string + ':' + seconds_string)
+
     # use update_time variable to cancel or pause the time using after_cancel
     global update_time
     update_time = timer_label.after(1000, update)
